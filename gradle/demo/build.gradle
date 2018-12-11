@@ -48,5 +48,8 @@ def env = System.getProperty("profile") ?: "dev"
 
 processResources {
     filter org.apache.tools.ant.filters.ReplaceTokens, tokens: [env: env]
+    if (env == "dev"){
+        filter org.apache.tools.ant.filters.ReplaceTokens, tokens: [loglevel: "debug"]
+    }
 }
 
