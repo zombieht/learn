@@ -1,12 +1,19 @@
 spring:
+  application:
+    name: demo
+  profiles:
+    active: test
+  jackson:
+    serialization.write_dates_as_timestamps: false
+
   devtools:
     restart:
       enabled: false
     livereload:
-      enabled: false
+      enabled: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://myDb:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:h2:mem:test
     username: root
     password: 123456
     hikari:
@@ -21,3 +28,5 @@ spring:
     show-sql: false
     hibernate:
       ddl-auto: update
+    open-in-view: false
+
