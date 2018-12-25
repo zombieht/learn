@@ -2,6 +2,8 @@ package com.zombie.demo.domain.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -18,6 +20,18 @@ public class User implements Serializable {
 
     @Column(name = "password")
     private String password;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_authority",
+            foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT),
+            inverseForeignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT),
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "authority_id", referencedColumnName = "id")}
+//            ,foreignKey = @ForeignKey(name = "none",value = ConstraintMode.NO_CONSTRAINT)
+    )
+    private List<Authority> authorities = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -41,5 +55,13 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
     }
 }
